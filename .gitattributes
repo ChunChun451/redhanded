@@ -1,0 +1,5 @@
+# Store text files with LF line endings.
+* text=auto
+
+# Shell scripts keep LF on every checkout, Windows included: the plugin runs hooks/run.sh with sh, which fails on CRLF.
+*.sh text eol=lf
