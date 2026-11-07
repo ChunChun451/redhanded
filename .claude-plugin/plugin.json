@@ -1,0 +1,21 @@
+{
+  "name": "redhanded",
+  "version": "0.1.0",
+  "description": "Anti-cheat for AI coding agents. Catches skipped or weakened tests, hard-coded answers, test-runner detection, neutered CI and lint config, and 'all tests pass' claims the session's own commands contradict. Sends Claude back to fix them before it stops.",
+  "author": {
+    "name": "ChunChun451",
+    "url": "https://github.com/ChunChun451"
+  },
+  "homepage": "https://github.com/ChunChun451/redhanded",
+  "repository": "https://github.com/ChunChun451/redhanded",
+  "license": "MIT",
+  "keywords": [
+    "reward-hacking",
+    "testing",
+    "code-review",
+    "guardrails",
+    "verification",
+    "hooks",
+    "ci"
+  ]
+}

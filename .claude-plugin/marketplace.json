@@ -1,0 +1,22 @@
+{
+  "name": "redhanded",
+  "description": "redhanded: anti-cheat for AI coding agents",
+  "owner": {
+    "name": "ChunChun451",
+    "url": "https://github.com/ChunChun451"
+  },
+  "plugins": [
+    {
+      "name": "redhanded",
+      "source": "./",
+      "description": "Catches AI coding agents gaming your tests and checks, and sends Claude back to fix it before it stops.",
+      "version": "0.1.0",
+      "author": {
+        "name": "ChunChun451"
+      },
+      "homepage": "https://github.com/ChunChun451/redhanded",
+      "license": "MIT",
+      "keywords": ["reward-hacking", "testing", "guardrails", "verification"]
+    }
+  ]
+}

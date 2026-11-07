@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.tox/
+.nox/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Output people tend to write while trying redhanded out
+redhanded-audit.*
+*.sarif
+
+# Per-machine Claude Code settings (`redhanded init claude` writes here)
+.claude/settings.local.json

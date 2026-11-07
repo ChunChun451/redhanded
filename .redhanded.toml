@@ -1,0 +1,3 @@
+# redhanded checks its own pull requests (see .github/workflows/ci.yml).
+# The test suite is full of deliberately gamed code used as fixtures, so it is not checked.
+ignore = ["tests/**", "examples/**"]

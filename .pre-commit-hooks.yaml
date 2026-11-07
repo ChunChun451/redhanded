@@ -1,0 +1,8 @@
+- id: redhanded
+  name: redhanded
+  description: Block commits that skip, delete or weaken tests, hard-code test answers, or neuter test/lint/CI config.
+  entry: redhanded check --staged
+  language: python
+  pass_filenames: false
+  always_run: true
+  stages: [pre-commit]

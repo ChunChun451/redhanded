@@ -1,0 +1,64 @@
+name: redhanded
+description: Catch AI coding agents gaming your tests in pull requests - skipped or weakened tests, hard-coded answers, neutered CI.
+author: ChunChun451
+branding:
+  icon: alert-octagon
+  color: red
+
+inputs:
+  fail-on:
+    description: Fail the job when a finding is at least this severe (low, medium, high) or never (off).
+    default: high
+  upload-sarif:
+    description: Also upload findings to GitHub code scanning. Needs `permissions: security-events: write`.
+    default: "false"
+  base:
+    description: Base revision. Defaults to the pull request base, or the commit before a push.
+    default: ""
+  head:
+    description: Head revision. Defaults to the pull request head, or the pushed commit.
+    default: ""
+  working-directory:
+    description: Folder inside the repository to run in.
+    default: "."
+
+outputs:
+  verdict:
+    description: clean, review or suspicious
+    value: ${{ steps.check.outputs.verdict }}
+  high:
+    description: Number of high-severity findings
+    value: ${{ steps.check.outputs.high }}
+  medium:
+    description: Number of medium-severity findings
+    value: ${{ steps.check.outputs.medium }}
+  low:
+    description: Number of low-severity findings
+    value: ${{ steps.check.outputs.low }}
+
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      env:
+        RH_SCRIPT: ${{ github.action_path }}/skills/redhanded/scripts/redhanded.py
+        RH_FAIL_ON: ${{ inputs.fail-on }}
+        RH_BASE: ${{ inputs.base }}
+        RH_HEAD: ${{ inputs.head }}
+        RH_DIR: ${{ inputs.working-directory }}
+        RH_SARIF: ${{ inputs.upload-sarif == 'true' && format('{0}/redhanded.sarif', runner.temp) || '' }}
+      run: |
+        py=python3
+        command -v python3 >/dev/null 2>&1 || py=python
+        args=(ci -C "$RH_DIR" --fail-on "$RH_FAIL_ON")
+        if [ -n "$RH_SARIF" ]; then args+=(--sarif "$RH_SARIF"); fi
+        if [ -n "$RH_BASE" ]; then args+=(--base "$RH_BASE"); fi
+        if [ -n "$RH_HEAD" ]; then args+=(--head "$RH_HEAD"); fi
+        "$py" "$RH_SCRIPT" "${args[@]}"
+
+    - if: always() && inputs.upload-sarif == 'true'
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+        sarif_file: ${{ runner.temp }}/redhanded.sarif
+        category: redhanded
