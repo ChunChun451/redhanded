@@ -16,7 +16,8 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python: ["3.13"]
         include:
-          - os: ubuntu-latest
+          # ubuntu-latest (26.04) has no Python 3.9 build. 3.9 is still the system Python on many Macs.
+          - os: ubuntu-24.04
             python: "3.9"
           - os: ubuntu-latest
             python: "3.14"
